@@ -9,21 +9,23 @@
 
 ## 快速开始
 1. 获取项目源码
-
-`git clone https://github.com/jackjsj/gulp-base.git`
-
+```
+git clone https://github.com/jackjsj/gulp-base.git
+```
 2. 跳转到项目根目录
-
-`cd gulp-base`
-
+```
+cd gulp-base
+```
 3. npm安装依赖
-
-`npm install`
-
+```
+npm install
+```
 4. 启动项目
-
-`npm start`
+```
+npm start
+```
 
 5. 浏览器访问 http://localhost:3000
 
 <img src="https://i.loli.net/2019/08/26/P83hc6wXMveQ4iN.png"/>
+
