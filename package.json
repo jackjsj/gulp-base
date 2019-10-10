@@ -17,5 +17,9 @@
     "gulp-load-plugins": "^1.5.0",
     "gulp-plumber": "^1.2.0",
     "gulp-sass": "^3.2.1"
+  },
+  "dependencies": {
+    "gulp-typescript": "^5.0.1",
+    "typescript": "^3.6.4"
   }
 }
