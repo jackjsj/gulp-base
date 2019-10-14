@@ -7,7 +7,6 @@ var gulp = require('gulp'),
   browserSync = require('browser-sync').create(),
   ts = require('gulp-typescript'),
   reload = browserSync.reload;
-console.log(1);
 //创建静态服务器并监听sass、html、js文件的修改
 gulp.task('serve', function() {
   browserSync.init({
