@@ -28,21 +28,6 @@ function cssFix() {
 function ts2es5() {
   return src('src/ts/*.ts')
     .pipe(tsProj())
-    .pipe(
-      babel({
-        presets: [
-          [
-            '@babel/env',
-            {
-              targets: {
-                browsers: ['last 2 versions', 'Android >= 4.0'],
-              },
-              modules: false,
-            },
-          ],
-        ],
-      })
-    )
     .pipe(dest('src/es5'))
     .pipe(
       reload({
@@ -80,8 +65,8 @@ exports.default = function() {
   browserSync.init({
     server: './',
   });
-  watch('src/scss/*.scss', cssFix);
-  watch('src/ts/*.ts', ts2es5);
-  watch('src/js/*.js', js2es5);
+  watch('src/scss/*.scss', { ignoreInitial: false }, cssFix);
+  watch('src/ts/*.ts', { ignoreInitial: false }, ts2es5);
+  watch('src/js/*.js', { ignoreInitial: false }, js2es5);
   watch('*.html').on('change', reload);
 };
