@@ -1,29 +1,14 @@
-var gulp = require('gulp'),
+const { src, dest, watch } = require('gulp'),
   autoprefixer = require('gulp-autoprefixer'),
   sass = require('gulp-sass'),
   babel = require('gulp-babel'),
-  plumber = require('gulp-plumber'),
-  $ = require('gulp-load-plugins')(),
   browserSync = require('browser-sync').create(),
   ts = require('gulp-typescript'),
-  reload = browserSync.reload;
-//创建静态服务器并监听sass、html、js文件的修改
-gulp.task('serve', function() {
-  browserSync.init({
-    server: './',
-  });
-  gulp.watch('src/scss/*.scss', ['cssFix']);
-  gulp.watch('src/ts/*.ts', ['ts']);
-  gulp.watch('src/js/*.js', ['es6']);
-  gulp.watch('*.html').on('change', reload);
-  gulp.watch('src/js/*.js').on('change', reload);
-  gulp.watch('src/ts/*.ts').on('change', reload);
-});
+  reload = browserSync.reload,
+  tsProj = ts.createProject('tsconfig.json');
 
-//编译sass，自动加兼容后缀
-gulp.task('cssFix', function() {
-  gulp
-    .src('src/scss/*.scss')
+function cssFix() {
+  return src('src/scss/*.scss')
     .pipe(sass())
     .pipe(
       autoprefixer({
@@ -32,36 +17,71 @@ gulp.task('cssFix', function() {
         remove: false, //是否去掉不必要的前缀 默认：true
       })
     )
-    .pipe(gulp.dest('src/css'))
+    .pipe(dest('src/css'))
     .pipe(
       reload({
         stream: true,
       })
     );
-});
+}
 
-gulp.task('es6', function() {
-  gulp
-    .src('src/js/*.js')
-    .pipe($.plumber())
+function ts2es5() {
+  return src('src/ts/*.ts')
+    .pipe(tsProj())
     .pipe(
-      $.babel({
-        presets: ['es2015'],
+      babel({
+        presets: [
+          [
+            '@babel/env',
+            {
+              targets: {
+                browsers: ['last 2 versions', 'Android >= 4.0'],
+              },
+              modules: false,
+            },
+          ],
+        ],
       })
     )
-    .pipe(gulp.dest('src/es5'));
-});
-
-gulp.task('ts', function() {
-  gulp
-    .src('src/ts/*.ts')
-    .pipe(ts.createProject('tsconfig.json')())
+    .pipe(dest('src/es5'))
     .pipe(
-      $.babel({
-        presets: ['es2015'],
+      reload({
+        stream: true,
+      })
+    );
+}
+
+function js2es5() {
+  return src('src/js/*.js')
+    .pipe(
+      babel({
+        presets: [
+          [
+            '@babel/env',
+            {
+              targets: {
+                browsers: ['last 2 versions', 'Android >= 4.0'],
+              },
+              modules: false,
+            },
+          ],
+        ],
       })
     )
-    .pipe(gulp.dest('src/es5'));
-});
+    .pipe(dest('src/es5'))
+    .pipe(
+      reload({
+        stream: true,
+      })
+    );
+}
 
-gulp.task('default', ['serve']);
+exports.default = function() {
+  browserSync.init({
+    server: './',
+  });
+  watch('src/scss/*.scss', cssFix);
+  watch('src/ts/*.ts', ts2es5);
+  watch('src/js/*.js', js2es5);
+  watch('*.html').on('change', reload);
+};
