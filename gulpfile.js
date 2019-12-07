@@ -1,22 +1,25 @@
 const { src, dest, watch } = require('gulp'),
-  autoprefixer = require('gulp-autoprefixer'),
+  autoprefixer = require('autoprefixer'),
   sass = require('gulp-sass'),
   babel = require('gulp-babel'),
   browserSync = require('browser-sync').create(),
   ts = require('gulp-typescript'),
   reload = browserSync.reload,
+  postcss = require('gulp-postcss'),
+  pxtorem = require('postcss-pxtorem'),
   tsProj = ts.createProject('tsconfig.json');
 
 function cssFix() {
   return src('src/scss/*.scss')
     .pipe(sass())
-    .pipe(
-      autoprefixer({
-        browsers: ['last 2 versions', 'Android >= 4.0'],
-        cascade: true, //是否美化属性值 默认：true 像这样：
-        remove: false, //是否去掉不必要的前缀 默认：true
-      })
-    )
+    .pipe(postcss([
+      autoprefixer(),
+      pxtorem({
+        rootValue: 37.5,
+        propList: ['*'],
+        replace: true,
+      }),
+    ]))
     .pipe(dest('src/css'))
     .pipe(
       reload({

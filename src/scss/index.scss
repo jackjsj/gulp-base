@@ -1,6 +1,11 @@
 @import './normalize.scss';
 @import './utils.scss';
 
-html,body{
-  height:100%;
+html{
+  font-size: 10vw;
+}
+div{
+  width:375px;
+  height:100px;
+  background:red;
 }
