@@ -1,5 +1,4 @@
 "use strict";
-
 $(document).ready(function () {
     /**
      * 求和
@@ -7,13 +6,11 @@ $(document).ready(function () {
      * @example sum(1,2,3) //6
      */
     function sum() {
-        for (var _len = arguments.length, nums = Array(_len), _key = 0; _key < _len; _key++) {
-            nums[_key] = arguments[_key];
+        var nums = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            nums[_i] = arguments[_i];
         }
-
-        return nums.reduce(function (pre, cur) {
-            return pre + cur;
-        });
+        return nums.reduce(function (pre, cur) { return pre + cur; });
     }
     console.log(sum(1, 2, 3, 4, 5));
 });
