@@ -11,8 +11,8 @@
 .di{display:inline;}
 .db{display:block;}
 .dib{display:inline-block;}
-.flex-wrapper{display:flex}
-.flex-wrapper-col{
+.flex{display:flex}
+.flex-col{
   display:flex;
   flex-direction: column;
 }
@@ -27,6 +27,15 @@
 }
 .aic{
   align-items:center;
+}
+.jca{
+  justify-content: space-around;
+}
+.jcb{
+  justify-content: space-between;
+}
+.jcc{
+  justify-content: center;
 }
 div.dib{*display:inline; *zoom:1;}/* other block level tag(eg. p, li, h1~h6), using 'inline_any' instead */
 /* height */
@@ -76,7 +85,8 @@ div.dib{*display:inline; *zoom:1;}/* other block level tag(eg. p, li, h1~h6), us
 .pct75{width:75%;}
 .pct80{width:80%;}
 .pct90{width:90%;}
-.pct100{width:100%;}
+.w100p,.pct100{width:100%;}
+.h100p{height:100%;}
 /* line-height */
 .lh0{line-height:0;}
 .lh14{line-height:14px;}
@@ -268,24 +278,9 @@ div.dib{*display:inline; *zoom:1;}/* other block level tag(eg. p, li, h1~h6), us
 .vh{visibility:hidden;}
 .vv{visibility:visible;}
 /* opacity */
-.opa0{opacity:0; filer:alpha(opacity=0);}
+.opa0{opacity:0; filter:alpha(opacity=0);}
 /* zoom */
 .z{*zoom:1;}
-.jca{
-  justify-content: space-around;
-}
-.jcb{
-  justify-content: space-between;
-}
-
-.jcc{
-  justify-content: center;
-}
-
-.flexend{
-  align-items: flex-end;
-}
-.height100pc{ height:100%};
 
 /* ------------------- multiply CSS ------------------ */
 /* 块状元素水平居中 */
